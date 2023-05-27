@@ -34,16 +34,19 @@ Yalidine::RetrieveParcels($trackings);
  
  Retrieve the Histories
   to get all
-    ```bash
+  
+ ```bash
  $status=''; 
-  ```
+ ```
  or 
-   ```bash
+ 
+```bash
  $status='Livré';
  Yalidine::DeliveredParcels($status)
-  ```
+```
  
  Create the parcels
+ 
    ```bash
  $parcels = array( // the array that contains all the parcels
         array ( // first parcel
