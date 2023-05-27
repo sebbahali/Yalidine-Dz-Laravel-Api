@@ -16,7 +16,7 @@ in providers
   Sebbahnouri\Yalidine\Providers\YaledineServiceProvider::class
   ```
   
-  #publish your config file 
+  #publish the config file 
   ```bash
   php artisan vendor:publish --tag=Yale-config
  ```
