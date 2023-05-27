@@ -1,0 +1,26 @@
+{
+    "name": "sebbahnouri/yalidine",
+    "description": "This is Laravel package For Yalidine Api",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sebbahnouri\\Yalidine\\": "src/"
+        }
+        ,"files": [
+            "src/yale.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "sebbah nouri"
+            ,
+            "email": "sebbahnouri@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.7",
+        "laravel/framework": "^10.10"
+    }
+}
