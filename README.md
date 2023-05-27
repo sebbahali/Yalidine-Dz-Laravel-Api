@@ -1,6 +1,11 @@
 # Nouri-YalidineLaravelApi
 
 laravel package For Yalidine Api 
+
+in composer.json 
+```bash
+    "minimum-stability": "dev"
+```
 ```bash
 composer require sebbahnouri/yalidine
 ```
