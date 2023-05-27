@@ -88,7 +88,7 @@ $pt='parcels';
 public static function Retrievedeliveryfees($wilaya_id)
 {
     self::Guzzle();
-    $pt='deliveryfees?wilaya_id';
+    $pt='deliveryfees?wilaya_id=';
 if($wilaya_id==[]){
 $pt='deliveryfees';
 
