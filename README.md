@@ -1,7 +1,9 @@
 # Nouri-YalidineLaravelApi
 
 laravel package For Yalidine Api 
-
+```bash
+composer require sebbahnouri/yalidine
+```
 #add in config app.php 
 in providers 
 ```bash
