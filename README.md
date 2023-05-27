@@ -103,7 +103,8 @@ Yalidine::RetrieveParcels($trackings);
   ```
  Delete the parcels
    ```bash
- Yalidine::DeleteParcels($parcels)
+   $trackings=['yal-205643','yal-454FU'];
+ Yalidine::DeleteParcels($trackings)
   ```
  
  Retrieve the delivery fees
