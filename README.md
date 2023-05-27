@@ -28,9 +28,9 @@ Yalidine::RetrieveParcels([])  for all the parcels
 or
   ```bash
 $trackings=['yal-205643','yal-454FU'];
-  ```
+
 Yalidine::RetrieveParcels($trackings);
- 
+  ``` 
  
  Retrieve the Histories
   to get all
