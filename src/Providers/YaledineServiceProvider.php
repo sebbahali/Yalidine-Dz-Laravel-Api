@@ -10,8 +10,8 @@ class YaledineServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../yale.php' => config_path('yale.php'),
-        ], 'yale-config');
+            __DIR__.'/../Yale.php' => config_path('Yale.php'),
+        ], 'Yale-config');
     }
 
     public function register()
