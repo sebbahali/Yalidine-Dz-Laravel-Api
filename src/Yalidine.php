@@ -85,7 +85,7 @@ $pt='parcels';
     $response_array = json_decode($response->getBody(), true);
     return $response_array;
 }
-public static function Retrievedeliveryfees($wilaya_id)
+public static function Retrievedeliveryfees(array $wilaya_id)
 {
     self::Guzzle();
     $pt='deliveryfees?wilaya_id=';
