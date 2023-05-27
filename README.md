@@ -6,6 +6,7 @@ in composer.json
 ```bash
     "minimum-stability": "dev"
 ```
+then 
 ```bash
 composer require sebbahnouri/yalidine
 ```
