@@ -2,18 +2,18 @@
 
 laravel package For Yalidine Api 
 
-add in config app.php 
+#add in config app.php 
 in providers 
 ```bash
   Sebbahnouri\Yalidine\Providers\YaledineServiceProvider::class
   ```
   
-  publish your config file 
+  #publish your config file 
   ```bash
   php artisan vendor:publish --tag=Yale-config
  ```
  
- then add in your env file 
+# then add in your env file 
  ```bash
  API_ID=******
 API_TOKEN=*******
@@ -32,7 +32,7 @@ $trackings=['yal-205643','yal-454FU'];
 Yalidine::RetrieveParcels($trackings);
   ``` 
  
- Retrieve the Histories
+ #Retrieve the Histories
   to get all
   
  ```bash
@@ -45,7 +45,7 @@ Yalidine::RetrieveParcels($trackings);
  Yalidine::DeliveredParcels($status)
 ```
  
- Create the parcels
+ #Create the parcels
  
    ```bash
  $parcels = array( // the array that contains all the parcels
@@ -101,17 +101,19 @@ Yalidine::RetrieveParcels($trackings);
         ```bash
  Yalidine::CreateParcels($parcels)
   ```
- Delete the parcels
+  
+ #Delete the parcels
    ```bash
    $trackings=['yal-205643','yal-454FU'];
  Yalidine::DeleteParcels($trackings)
   ```
  
- Retrieve the delivery fees
+ #Retrieve the delivery fees
   ```bash
+  $wilaya_id=['13','14'];
  Yalidine::Retrievedeliveryfees($wilaya_id);
   ```
- or all using 
+ #or all using 
  
   ```bash
  Yalidine::Retrievedeliveryfees([]);
