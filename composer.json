@@ -5,19 +5,18 @@
     "autoload": {
         "psr-4": {
             "Sebbahnouri\\Yalidine\\": "src/"
-        }
-        ,"files": [
+        },
+        "files": [
             "src/yale.php"
         ]
     },
     "authors": [
         {
-            "name": "sebbah nouri"
-            ,
+            "name": "sebbah nouri",
             "email": "sebbahnouri@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.7",
