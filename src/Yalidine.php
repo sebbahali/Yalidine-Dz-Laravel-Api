@@ -1,134 +1,116 @@
 <?php
 namespace Sebbahnouri\Yalidine;
-use Illuminate\Support\Facades\Config;
+
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
-class Yalidine{ 
-
-private static $url = "https://api.yalidine.com/v1/";
-private static $api_id = null;
-private static $api_token = null;
-
-
-public static function Guzzle()
+class Yalidine
 {
-    if (is_null(self::$api_id)) {
-        self::$api_id = config('Yale.api_id');
+
+    private string $url = "https://api.yalidine.com/v1/";
+    private string $apiId;
+    private string $apiToken;
+
+
+    public function __construct()
+    {
+        $this->apiId = config('Yale-config.api_id');
+        $this->apiToken = config('Yale-config.api_token');
     }
-    if (is_null(self::$api_token)) {
-        self::$api_token = config('Yale.api_token');
+
+    public function retrieveParcels(array $trackings = [])
+    {
+        $options = [];
+        if ($trackings) {
+            $tracking = implode(',', $trackings);
+            $options['query'] = [
+                'tracking' => $tracking
+            ];
+        }
+
+        $response = $this->request('GET', 'parcels', $options);
+        //TODO:create a jsonserialize class to represent the response
+        return $response;
     }
-}
-public static function RetrieveParcels(array $trackings)
-{
-    self::Guzzle();
+    public function createParcels(array $parcels)
+    {
+        $options = [
+            'json' => $parcels
+        ];
 
-    $client = new Client();
-    $pt='parcels?tracking=';
-    if($trackings==[]){
-    $pt='parcels';
-    
+        $response = $this->request('POST', 'parcels', $options);
+        //TODO:create a jsonserialize class to represent the response
+        return $response;
     }
-    $tracking = implode(',', $trackings);
-    $url = self::$url . $pt . $tracking;
 
-    $response = $client->get($url, [
-        'headers' => [
-            'X-API-ID' => self::$api_id,
-            'X-API-TOKEN' => self::$api_token
-        ]
-    ]);
+    public function deleteParcels(array $trackings)
+    {
+        $options = [];
+        if ($trackings) {
+            $tracking = implode(',', $trackings);
+            $options['query'] = [
+                'tracking' => $tracking
+            ];
+        }
 
-    $response_array = json_decode($response->getBody(), true);
-    return $response_array;
-}
-public static function CreateParcels($parcels)
-{
-    self::Guzzle();
+        $response = $this->request('DELETE', 'parcels', $options);
+        //TODO:create a jsonserialize class to represent the response
+        return $response;
+    }
+    public function retrieveDeliveryfees(array $wilayaIds = [])
+    {
+        $options = [];
+        if ($wilayaIds) {
+            $wilayaIds = implode(',', $wilayaIds);
+            $options['query'] = [
+                'wilaya_id' => $wilayaIds
+            ];
+        }
 
-    $client = new Client();
-    $url = self::$url . 'parcels/';
+        $response = $this->request('GET', 'deliveryfees', $options);
+        //TODO:create a jsonserialize class to represent the response
+        return $response;
+    }
 
-    $response = $client->post($url, [
-        'headers' => [
-            'X-API-ID' => self::$api_id,
-            'X-API-TOKEN' => self::$api_token,
-            'Content-Type' => 'application/json'
-        ],
-        'json' => $parcels
-    ]);
+    public function retrieveHistoryParcels(?string $status) // the param should be an enum of all the status 
+    {
+        $options = [];
+        if ($status) {
+            $options['query'] = [
+                'status' => $status
+            ];
+        }
 
-    $response_array = json_decode($response->getBody(), true);
-    return $response_array;
-}
+        $response = $this->request('GET', 'histories', $options);
+        //TODO:create a jsonserialize class to represent the response
+        return $response; 
+    }
 
-public static function DeleteParcels(array $trackings)
-{
-    self::Guzzle();
 
-    $client = new Client();
-    $pt='parcels?tracking=';
-if($trackings==[]){
-$pt='parcels';
+    private function request(string $method, string $endpoint, array $options): ?array
+    {
+        try {
+            $client = new Client([
+                'default' => [
+                    'headers' => [
+                        'X-API-ID' => $this->apiId,
+                        'X-API-TOKEN' => $this->apiToken,
+                        'Content-Type' => 'application/json'
+                    ]
+                ]
+            ]);
+            $url = $this->url . '/' . $endpoint;
 
-}
-    $tracking = implode(',', $trackings);
-    $url = self::$url . $pt . $tracking;
+            if (isset($options['json'])) {
+                $options['json'] = json_encode($options['json']);
+            }
 
-    $response = $client->delete($url, [
-        'headers' => [
-            'X-API-ID' => self::$api_id,
-            'X-API-TOKEN' => self::$api_token
-        ]
-    ]);
+            $response = $client->request($method, $url, $options);
 
-    $response_array = json_decode($response->getBody(), true);
-    return $response_array;
-}
-public static function Retrievedeliveryfees(array $wilaya_id)
-{
-    self::Guzzle();
-    $pt='deliveryfees?wilaya_id=';
-if($wilaya_id==[]){
-$pt='deliveryfees';
-
-}
-    $wilaya_id1 = implode(',', $wilaya_id);
-    $client = new Client();
-    $url = self::$url . $pt. $wilaya_id1;
-
-    $response = $client->get($url, [
-        'headers' => [
-            'X-API-ID' => self::$api_id,
-            'X-API-TOKEN' => self::$api_token
-        ]
-    ]);
-
-    $response_array = json_decode($response->getBody(), true);
-    return $response_array;
-}
-
-public static function DeliveredParcels($status)
-{
-    self::Guzzle();
-
-    
-$pt='histories?status=';
-if($status==''){
-$pt='histories';
-
-}
-$client = new Client();
-    $url = self::$url . $pt . $status;
-
-    $response = $client->get($url, [
-        'headers' => [
-            'X-API-ID' => self::$api_id,
-            'X-API-TOKEN' => self::$api_token
-        ]
-    ]);
-
-    $response_array = json_decode($response->getBody(), true);
-    return $response_array;
-}
+            return json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+        return null;
+    }
 }
